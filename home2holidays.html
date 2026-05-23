@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home 2 Holidays — Crafted Journeys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand: #F5EFE6;
+      --warm-white: #FDFAF5;
+      --deep-teal: #1A3A3A;
+      --teal: #2C5F5F;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --text: #2A2A2A;
+      --muted: #7A7060;
+      --whatsapp: #25D366;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(253, 250, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--deep-teal);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 2.2rem; list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--deep-teal); }
+    .nav-cta {
+      background: var(--deep-teal);
+      color: var(--warm-white) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: var(--teal); color: var(--warm-white) !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--deep-teal); transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--warm-white); border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 1.5rem 5%; flex-direction: column; gap: 1.2rem; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--deep-teal) 0%, #0E2424 60%, #162E2E 100%);
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0; opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-glow {
+      position: absolute; top: -20%; right: -10%;
+      width: 60vw; height: 80vh;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 680px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.4);
+      padding: 0.4rem 1rem; border-radius: 2px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--warm-white);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .hero h1 em { color: var(--gold-light); font-style: italic; }
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(253,250,245,0.7);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--gold);
+      color: var(--deep-teal);
+      padding: 0.9rem 2rem;
+      font-family: var(--font-body); font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(253,250,245,0.35);
+      color: var(--warm-white);
+      padding: 0.9rem 2rem;
+      font-family: var(--font-body); font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover { background: rgba(253,250,245,0.08); transform: translateY(-2px); }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(253,250,245,0.4); font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; animation: fadeUp 1s 0.8s both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 5%; }
+    .section-tag {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; display: block;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300; line-height: 1.2;
+      color: var(--deep-teal); margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; }
+    .section-body {
+      font-size: 1rem; line-height: 1.85;
+      color: var(--muted); font-weight: 300; max-width: 620px;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold); margin: 1.5rem 0;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--sand);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--deep-teal);
+      border-radius: 4px;
+      padding: 3rem;
+      color: var(--warm-white);
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute; top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+    }
+    .about-card-quote {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 300; font-style: italic;
+      line-height: 1.5; color: var(--gold-light);
+      margin-bottom: 1.5rem;
+    }
+    .about-card-text {
+      font-size: 0.9rem; line-height: 1.8;
+      color: rgba(253,250,245,0.75); font-weight: 300;
+    }
+    .about-badge {
+      position: absolute; bottom: -20px; right: 2rem;
+      background: var(--gold); color: var(--deep-teal);
+      width: 90px; height: 90px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+    }
+    .about-badge-num { font-size: 1.8rem; font-weight: 600; line-height: 1; }
+    .about-badge-txt { font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--warm-white); }
+    .services-header { max-width: 560px; margin-bottom: 4rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--sand);
+      border-radius: 4px;
+      padding: 2.2rem;
+      border: 1px solid transparent;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; width: 0;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .service-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,58,58,0.08); }
+    .service-card:hover::after { width: 100%; }
+    .service-icon {
+      font-size: 1.8rem; margin-bottom: 1.2rem; display: block;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem; font-weight: 400;
+      color: var(--deep-teal); margin-bottom: 0.8rem;
+    }
+    .service-desc {
+      font-size: 0.88rem; line-height: 1.75;
+      color: var(--muted); font-weight: 300;
+    }
+
+    /* ── WHY US ── */
+    #why {
+      background: var(--deep-teal);
+      position: relative; overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    #why .section-title { color: var(--warm-white); }
+    #why .section-body { color: rgba(253,250,245,0.65); max-width: 540px; }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .why-item {
+      background: rgba(253,250,245,0.05);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 4px; padding: 2rem;
+      transition: all 0.3s;
+    }
+    .why-item:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.35); }
+    .why-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem; font-weight: 300;
+      color: rgba(201,168,76,0.3); margin-bottom: 0.8rem; line-height: 1;
+    }
+    .why-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem; color: var(--gold-light);
+      margin-bottom: 0.6rem;
+    }
+    .why-desc {
+      font-size: 0.87rem; line-height: 1.75;
+      color: rgba(253,250,245,0.6); font-weight: 300;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--sand); }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info .section-body { margin-bottom: 2.5rem; }
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      background: var(--whatsapp);
+      color: #fff;
+      padding: 1rem 2.2rem;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none; border-radius: 3px;
+      transition: all 0.25s; box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+    }
+    .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,211,102,0.4); }
+    .wa-btn svg { width: 22px; height: 22px; fill: white; }
+    .contact-card {
+      background: var(--warm-white);
+      border-radius: 4px; padding: 2.5rem;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+    .contact-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--deep-teal); margin-bottom: 0.5rem;
+    }
+    .contact-card p {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 1.8rem; font-weight: 300;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .contact-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1rem;
+    }
+    .contact-row-text { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+    .contact-row-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 2px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0E2424;
+      padding: 3rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 600;
+      color: var(--warm-white);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy {
+      font-size: 0.78rem; color: rgba(253,250,245,0.4);
+      letter-spacing: 0.05em;
+    }
+    .footer-links {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.78rem; color: rgba(253,250,245,0.45);
+      text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── FLOATING WA ── */
+    .wa-float {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: var(--whatsapp);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      text-decoration: none;
+      animation: pulse-wa 2.5s infinite;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1; transform: scaleY(1.15); }
+    }
+    @keyframes pulse-wa {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+      50%       { box-shadow: 0 4px 35px rgba(37,211,102,0.7); }
+    }
+
+    /* Scroll-reveal */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 5%; }
+      .hero { padding: 7rem 5% 5rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Home 2 <span>Holidays</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20your%20travel%20services." target="_blank" class="nav-cta">WhatsApp Us</a></li>
+  </ul>
+  <button class="hamburger" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#why" onclick="closeMobile()">Why Us</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20your%20travel%20services." target="_blank" style="color: var(--whatsapp);">WhatsApp Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="hero-tag">✦ Curated Travel Experiences</span>
+    <h1>Your Journey<br>Begins at<br><em>Your Door</em></h1>
+    <p class="hero-desc">From your doorstep to your dream destination — every transfer, stay, and moment, seamlessly arranged for you.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20your%20travel%20services." target="_blank" class="btn-outline">
+        <svg viewBox="0 0 24 24" width="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.549 4.125 1.514 5.875L0 24l6.336-1.498A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.912 0-3.71-.5-5.273-1.377l-.377-.211-3.762.89.938-3.65-.234-.384A9.94 9.94 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-card">
+      <div class="about-card-quote">"A truly exceptional holiday begins long before you reach your destination."</div>
+      <div class="about-card-text">Our philosophy — travel should be effortless, refined, and completely stress-free. From the moment you step out of your home, every element of your journey is carefully curated by our team.</div>
+    </div>
+    <div class="about-badge">
+      <span class="about-badge-num">H2H</span>
+      <span class="about-badge-txt">Journeys</span>
+    </div>
+  </div>
+  <div class="about-text reveal reveal-d1">
+    <span class="section-tag">✦ Who We Are</span>
+    <h2 class="section-title">About <em>Home 2 Holidays</em></h2>
+    <div class="divider"></div>
+    <p class="section-body">Whether it's comfortable transfers to and from the airport or railway station, handpicked accommodations, or thoughtfully planned itineraries, we manage every detail with precision. Our goal is to provide you with a seamless travel experience where comfort, convenience, and quality come together.</p>
+    <br>
+    <p class="section-body">With Home 2 Holidays, you don't just plan a trip — you enjoy a perfectly crafted journey where every moment is designed for your comfort and every memory is meant to last a lifetime.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <span class="section-tag">✦ What We Offer</span>
+    <h2 class="section-title">Complete <em>Travel Solutions</em></h2>
+    <div class="divider"></div>
+    <p class="section-body">From the moment you step out of your home, we manage every detail of your trip with care and precision.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-d1">
+      <span class="service-icon">🚗</span>
+      <h3 class="service-title">Airport & Station Transfers</h3>
+      <p class="service-desc">Comfortable, punctual pick-up and drop-off from your home to the airport or railway station and back. Never worry about logistics again.</p>
+    </div>
+    <div class="service-card reveal reveal-d2">
+      <span class="service-icon">🏨</span>
+      <h3 class="service-title">Hotel Bookings</h3>
+      <p class="service-desc">Handpicked accommodations that match your comfort expectations and budget — from boutique stays to premium resorts.</p>
+    </div>
+    <div class="service-card reveal reveal-d3">
+      <span class="service-icon">🗺️</span>
+      <h3 class="service-title">Customized Holiday Packages</h3>
+      <p class="service-desc">Tailor-made itineraries designed around your preferences — whether it's a relaxing retreat, family trip, or a special getaway.</p>
+    </div>
+    <div class="service-card reveal reveal-d1">
+      <span class="service-icon">🎭</span>
+      <h3 class="service-title">Sightseeing Arrangements</h3>
+      <p class="service-desc">Curated sightseeing tours with reliable guides so you experience the best of every destination without any hassle.</p>
+    </div>
+    <div class="service-card reveal reveal-d2">
+      <span class="service-icon">🤝</span>
+      <h3 class="service-title">Local Travel Assistance</h3>
+      <p class="service-desc">On-ground support throughout your journey — we're just a call away whenever you need help or guidance.</p>
+    </div>
+    <div class="service-card reveal reveal-d3" style="background: var(--deep-teal); display: flex; flex-direction: column; justify-content: center;">
+      <span class="service-icon">✨</span>
+      <h3 class="service-title" style="color: var(--gold-light);">Have a custom need?</h3>
+      <p class="service-desc" style="color: rgba(253,250,245,0.65); margin-bottom: 1.5rem;">Talk to us on WhatsApp and we'll craft the perfect plan for you.</p>
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%20have%20a%20custom%20travel%20requirement." target="_blank" class="btn-primary" style="align-self: flex-start; font-size: 0.78rem; padding: 0.7rem 1.4rem;">Ask Us Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div style="position: relative; z-index: 1;">
+    <span class="section-tag" style="color: var(--gold);">✦ Why Choose Us</span>
+    <h2 class="section-title reveal">Why <em>Home 2 Holidays</em></h2>
+    <div class="divider"></div>
+    <p class="section-body reveal">We understand that every traveler is different, which is why we create trips that match your preferences and expectations.</p>
+    <div class="why-grid">
+      <div class="why-item reveal reveal-d1">
+        <div class="why-num">01</div>
+        <div class="why-title">Seamless Planning</div>
+        <p class="why-desc">End-to-end coordination from home pickup to return drop-off. You focus on enjoying; we handle everything else.</p>
+      </div>
+      <div class="why-item reveal reveal-d2">
+        <div class="why-num">02</div>
+        <div class="why-title">Trusted Partners</div>
+        <p class="why-desc">A carefully vetted network of hotels, transport providers, and local guides ensures quality at every step.</p>
+      </div>
+      <div class="why-item reveal reveal-d3">
+        <div class="why-num">03</div>
+        <div class="why-title">Personalized Experiences</div>
+        <p class="why-desc">No two trips are alike. Every itinerary is crafted specifically around your needs, pace, and preferences.</p>
+      </div>
+      <div class="why-item reveal reveal-d4">
+        <div class="why-num">04</div>
+        <div class="why-title">Dedicated Support</div>
+        <p class="why-desc">Our team is available throughout your journey — reach us instantly on WhatsApp for any assistance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <span class="section-tag">✦ Get In Touch</span>
+      <h2 class="section-title">Start Your<br><em>Journey Today</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">Have a question or ready to plan your next trip? Reach out to us directly on WhatsApp — we're just a message away and happy to help.</p>
+      <br>
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20your%20travel%20services." target="_blank" class="wa-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.549 4.125 1.514 5.875L0 24l6.336-1.498A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.912 0-3.71-.5-5.273-1.377l-.377-.211-3.762.89.938-3.65-.234-.384A9.94 9.94 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div class="contact-card reveal reveal-d2">
+      <h3>Home 2 Holidays</h3>
+      <p>We'd love to plan your next perfect getaway. Reach out using any of the details below.</p>
+      <div class="contact-details">
+        <div class="contact-row">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-row-label">WhatsApp / Phone</div>
+            <div class="contact-row-text">+91 99999 99999</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-row-label">Email</div>
+            <div class="contact-row-text">hello@home2holidays.com</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-row-label">Location</div>
+            <div class="contact-row-text">India</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-row-label">Availability</div>
+            <div class="contact-row-text">Mon – Sat, 9 AM – 8 PM IST</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Home 2 <span>Holidays</span></div>
+  <ul class="footer-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Home 2 Holidays. All rights reserved.</p>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/919999999999?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20your%20travel%20services." target="_blank" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.549 4.125 1.514 5.875L0 24l6.336-1.498A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.912 0-3.71-.5-5.273-1.377l-.377-.211-3.762.89.938-3.65-.234-.384A9.94 9.94 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  // Hamburger
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => menu.classList.toggle('open'));
+  function closeMobile() { menu.classList.remove('open'); }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow =
+      window.scrollY > 40 ? '0 2px 24px rgba(26,58,58,0.1)' : 'none';
+  });
+</script>
+</body>
+</html>
